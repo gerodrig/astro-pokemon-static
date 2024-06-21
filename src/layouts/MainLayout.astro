@@ -1,6 +1,7 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
 import { SITE_INFO } from '@constants/site-info';
+import Navbar from '@components/shared/Navbar.astro';
 type Props = {
   title?: string;
   image?: string;
@@ -13,6 +14,7 @@ const {
   image,
 } = Astro.props;
 ---
+
 
 <html lang="en">
   <head>
@@ -42,8 +44,9 @@ const {
     <!-- Old Way for ViewTransitions -->
     <ViewTransitions />
   </head>
-  <body class="bg-slate-800 text-slate-100 m-auto max-w-7xl">
-    <main class="mt-10">
+  <body class="bg-slate-800 text-slate-100">
+    <Navbar />
+    <main class="mt-10 m-auto max-w-7xl">
       <slot />
     </main>
   </body>
