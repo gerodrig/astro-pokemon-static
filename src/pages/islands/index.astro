@@ -1,15 +1,20 @@
 ---
-import MainLayout from "@layouts/MainLayout.astro";
-import Title from "@components/shared/Title.astro";
-import { Counter } from "@components/Counter";
+import MainLayout from '@layouts/MainLayout.astro';
+import Title from '@components/shared/Title.astro';
+import { Counter } from '@components/Counter';
 
-
+const counterValue = 0;
 ---
 
 <MainLayout title="Favorites">
-    <Title>Islands</Title>
-
-    <!-- <Counter client:load /> -->
-     <!-- Load when component is visible -->
-    <Counter client:visible />
+  <!-- <Counter client:load /> -->
+  <!-- Load when component is visible -->
+  <Counter
+    transition:persist="counter"
+    transition:persist-props
+    client:visible
+    initValue={counterValue}
+  >
+    <Title>Counter Islands</Title>
+  </Counter>
 </MainLayout>
