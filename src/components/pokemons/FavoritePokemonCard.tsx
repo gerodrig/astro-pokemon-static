@@ -6,29 +6,30 @@ type Props = {
   class?: string;
 };
 
-export const FavoritePokemonCard: Component<Props> = (props) => {
+export const FavoritePokemonCard: Component<Props> = ({pokemon, class: customClass}) => {
   const [isVisible, setIsVisible] = createSignal(true);
 
-  const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${props.pokemon.id}.png`;
+  const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`;
 
   const deleteFavoritePokemon = () => {
     const favoritePokemons = JSON.parse(
       localStorage.getItem('favoritePokemons') ?? '[]'
-    );
+    ) as FavoritePokemon[];
+
     const updatedPokemons = favoritePokemons.filter(
-      (pokemon: FavoritePokemon) => pokemon.id !== props.pokemon.id
+      (p ) => p.id !== pokemon.id
     );
     localStorage.setItem('favoritePokemons', JSON.stringify(updatedPokemons));
     setIsVisible(false);
   };
 
   return (
-    <Show when={isVisible}>
-      <div class={`flex flex-col justify-center items-center ${props.class}`}>
-        <a href={`/pokemons/${props.pokemon.name}`}>
-          <img class="w-24 h-24" src={imageSrc} alt={props.pokemon.name} style={`view-transition-name: ${props.pokemon.name}-iamge`}/>
+    <Show when={isVisible()}>
+      <div class={`flex flex-col justify-center items-center ${customClass}`}>
+        <a href={`/pokemons/${pokemon.name}`}>
+          <img class="w-24 h-24" src={imageSrc} alt={pokemon.name} style={`view-transition-name: ${pokemon.name}-image`}/>
           <p class="capitalize">
-            #{props.pokemon.id} {props.pokemon.name}
+            #{pokemon.id} {pokemon.name}
           </p>
         </a>
         <button
